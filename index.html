@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Temple AR Prototype</title>
+  <!-- model-viewer -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    body{font-family:Arial;margin:0;display:flex;flex-direction:column;align-items:center}
+    header{padding:12px;text-align:center}
+    model-viewer{width:100%;max-width:900px;height:70vh;border-radius:8px;overflow:hidden}
+    .btn{padding:10px 16px;border-radius:8px;border:none;background:#1565c0;color:#fff;font-size:16px;margin:12px}
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Temple AR Prototype</h2>
+    <p>Tap "View in AR" to open the camera and place the model into your space.</p>
+  </header>
+
+  <!-- Replace src with your .glb URL; ios-src with a .usdz for iPhone Quick Look if you have one -->
+  <model-viewer id="mv"
+  src="https://chetan-kumar-g.github.io/model/"
+  alt="Temple placeholder"
+  ar
+  ar-modes="webxr scene-viewer quick-look"
+  camera-controls
+  auto-rotate
+  shadow-intensity="0.5">
+  
+  <!-- Built-in AR Button -->
+  <button slot="ar-button" class="btn">View in AR</button>
+</model-viewer>
+
+
+  <div style="text-align:center;width:100%;max-width:900px">
+    <button class="btn" onclick="document.getElementById('mv').activateAR()">View in AR</button>
+    <button class="btn" onclick="alert('Tip: move phone slowly until the model snaps to the floor and tap to place.')">Demo Tips</button>
+  </div>
+
+  <script>
+    // Optional: check if device supports AR
+    const mv = document.getElementById('mv');
+    mv.addEventListener('load', () => {
+      mv.canActivateAR().then(yes => {
+        if (!yes) console.log('AR not supported on this device/browser');
+      });
+    });
+  </script>
+</body>
+</html>

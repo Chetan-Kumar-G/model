@@ -3,23 +3,54 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Temple AR Prototype</title>
-
-  <!-- Model Viewer -->
+  <title>Temple AR Demo</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-
   <style>
-    body { font-family: Arial; margin:0; display:flex; flex-direction:column; align-items:center; background:#f0f0f0; }
-    header { padding:12px; text-align:center; }
-    model-viewer { width:100%; max-width:900px; height:70vh; border-radius:8px; overflow:hidden; background:#eaeaea; }
-    .btn { padding:10px 16px; border-radius:8px; border:none; background:#1565c0; color:#fff; font-size:16px; margin:12px; cursor:pointer; }
+    body {
+      font-family: Arial;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #f0f0f0;
+    }
+    header {
+      padding: 12px;
+      text-align: center;
+    }
+    model-viewer {
+      width: 100%;
+      max-width: 900px;
+      height: 70vh;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #eaeaea;
+    }
+    .btn {
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      background: #1565c0;
+      color: #fff;
+      font-size: 16px;
+      margin: 12px;
+      cursor: pointer;
+    }
+    #loading {
+      text-align: center;
+      padding: 12px;
+      font-size: 16px;
+      color: #333;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h2>Temple AR Prototype</h2>
-    <p>Tap "View in AR" to place the temple on the floor. Move phone slowly until model snaps and tap to place.</p>
+    <h2>Temple AR Demo</h2>
+    <p>Tap "View in AR" and wait for the model to appear. Move your phone slowly until it snaps to the floor.</p>
   </header>
+
+  <div id="loading">Loading 3D Model...</div>
 
   <model-viewer
     id="mv"
@@ -30,11 +61,11 @@
     ar-placement="floor"
     interaction-prompt="auto"
     camera-controls
-    shadow-intensity="0.5"
+    auto-rotate
+    scale="0.25 0.25 0.25"
     position="0 -1 0"
-    scale="0.5 0.5 0.5"
-    auto-rotate>
-    
+    shadow-intensity="0.5"
+    style="display:none;">
     <button slot="ar-button" class="btn">View in AR</button>
   </model-viewer>
 
@@ -45,10 +76,17 @@
 
   <script>
     const mv = document.getElementById('mv');
+    const loading = document.getElementById('loading');
+
+    // Show model after it loads
     mv.addEventListener('load', () => {
-      mv.canActivateAR().then(supported => {
-        if (!supported) console.log('AR not supported on this device/browser');
-      });
+      loading.style.display = 'none';
+      mv.style.display = 'block';
+    });
+
+    // Optional: check if device supports AR
+    mv.canActivateAR().then(supported => {
+      if (!supported) console.log('AR not supported on this device/browser');
     });
   </script>
 </body>

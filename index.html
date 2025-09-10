@@ -20,19 +20,19 @@
   </header>
 
   <!-- Replace src with your .glb URL; ios-src with a .usdz for iPhone Quick Look if you have one -->
-  <model-viewer id="mv"
-  src="https://chetan-kumar-g.github.io/model/Untitled-v1.glb"
-  alt="Temple placeholder"
+  <model-viewer
+  src="https://chetan-kumar-g.github.io/model/temple.glb"
+  alt="Temple"
   ar
   ar-modes="webxr scene-viewer quick-look"
   camera-controls
   auto-rotate
-  shadow-intensity="0.5">
-  
-  <!-- Built-in AR Button -->
-  <button slot="ar-button" class="btn">View in AR</button>
+  shadow-intensity="0.5"
+  scale="0.5 0.5 0.5"  <!-- adjust size if too big -->
+  camera-orbit="0deg 75deg 3m"  <!-- optional to control initial view -->
+>
+  <button slot="ar-button">View in AR</button>
 </model-viewer>
-
 
   <div style="text-align:center;width:100%;max-width:900px">
     <button class="btn" onclick="document.getElementById('mv').activateAR()">View in AR</button>
@@ -50,9 +50,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
